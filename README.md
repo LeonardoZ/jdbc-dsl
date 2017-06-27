@@ -1,6 +1,11 @@
 # JDBC-DSL
 
 ## BE CAREFUL -  JDBC-DSL it's not production ready yet. 
+[![][travis img]][travis]
+
+[travis]:https://travis-ci.org/LeonardoZ/jdbc-dsl
+[travis img]:https://travis-ci.org/LeonardoZ/jdbc-dsl.svg?branch=master
+
 
 JDBC-DSL is a simple Domain Specific Language that allows a flexible manipulation of the JDBC API.
 It supports:
