@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.leonardoz</groupId>
     <artifactId>jdbc-dsl</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2-BETA</version>
     <name>jdbc-dsl</name>
     <description>Java DSL for easy JDBC API manipulation containing functionalities for day-to-day development</description>
     <url>https://github.com/LeonardoZ/jdbc-dsl</url>
@@ -40,6 +41,19 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>cobertura-it-maven-plugin-maven2-release</id>
+            <url>http://cobertura-it-maven-plugin.googlecode.com/svn/maven2/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <junit4.version>4.11</junit4.version>
@@ -177,6 +191,36 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>it-cobertura</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <version>4.3.0</version>
+                        <configuration>
+                            <repoToken>${repoToken}</repoToken>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.7</version>
+                        <configuration>
+                            <maxmem>256m</maxmem>
+                            <formats>
+                                <format>xml</format>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+
         </profile>
     </profiles>
     <build>
