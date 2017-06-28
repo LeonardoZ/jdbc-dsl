@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.leonardoz</groupId>
     <artifactId>jdbc-dsl</artifactId>
-    <version>0.3</version>
+    <version>0.3-SNAPSHOT</version>
     <name>jdbc-dsl</name>
     <description>Java DSL for easy JDBC API manipulation containing functionalities for day-to-day development</description>
     <url>https://github.com/LeonardoZ/jdbc-dsl</url>
@@ -26,7 +26,7 @@
         <url>https://github.com/LeonardoZ/jdbc-dsl</url>
         <connection>scm:git:git://github.com/leonardoz/jdbc-dsl</connection>
         <developerConnection>scm:git:git@github.com:leonardoz/jdbc-dsl.git</developerConnection>
-        <tag>jdbc-dsl-0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <organization>
