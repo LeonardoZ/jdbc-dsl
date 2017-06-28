@@ -194,7 +194,6 @@
         </profile>
         <profile>
             <id>it-cobertura</id>
-
             <build>
                 <plugins>
                     <plugin>

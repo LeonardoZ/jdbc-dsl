@@ -5,5 +5,9 @@ jdk:
   - oraclejdk8
   - openjdk8
   - openjdk7
+install:
+  - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+  - mvn test cobertura:cobertura -P it-cobertura
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report -P it-cobertura
+  - mvn coveralls:report -P it-cobertura
