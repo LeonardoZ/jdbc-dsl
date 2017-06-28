@@ -19,21 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.query;
+package br.com.leonardoz.dsl.dml;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * @author Leonardo H. Zapparoli
- *  2017-06-27
- */
-public class SqlQueryExecutor {
-
-	public ResultSet get(PreparedStatement statement, Connection connection) throws SQLException {
-		return statement.executeQuery();
+public class SqlOperationExecutor {
+	
+	/**
+	 * @param statement
+	 * @param conn
+	 * @return Affected Rows
+	 * @throws SQLException
+	 */
+	public int exec(PreparedStatement statement, Connection conn) throws SQLException {
+		int affectedRows = statement.executeUpdate();
+		return affectedRows;
 	}
 
 }

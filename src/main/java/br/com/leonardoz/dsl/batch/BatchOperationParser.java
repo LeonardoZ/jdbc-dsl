@@ -19,27 +19,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals;
+package br.com.leonardoz.dsl.batch;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
+
+import br.com.leonardoz.dsl.statement.PreparedStatementUtils;
 
 /**
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class SimpleStatementParser {
+public class BatchOperationParser {
 
 	/**
-	 * @param operation
+	 * @param sql
+	 * @param paramsOfStatements
 	 * @param connection
-	 * @return {@ PreparedStatement} built from {@ SimpleStatement}
+	 * @return  {@ PreparedStatement} 
 	 * @throws SQLException
 	 */
-	public PreparedStatement parse(SimpleStatement operation, Connection connection) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(operation.getSql());
-		PreparedStatementUtils.setParementers(statement, operation.getParameters());
+	public PreparedStatement parse(String sql, List<Object[]> paramsOfStatements, Connection connection) 
+			throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(sql);
+		for (Object[] params : paramsOfStatements) {
+			PreparedStatementUtils.setParementers(statement, params);
+			statement.addBatch();
+		}
 		return statement;
 	}
 

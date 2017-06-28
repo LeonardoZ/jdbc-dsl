@@ -28,11 +28,11 @@ import static org.mockito.Matchers.any;
 
 import org.junit.Test;
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.dsl.internals.StatementBuilder;
-import br.com.leonardoz.dsl.internals.dml.DmlStatementWorker;
-import br.com.leonardoz.dsl.internals.query.QueryStatementWorker;
-import br.com.leonardoz.dsl.internals.query.ResultSetToEntity;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.dml.DmlStatementWorker;
+import br.com.leonardoz.dsl.query.QueryStatementWorker;
+import br.com.leonardoz.dsl.query.ResultSetToEntity;
+import br.com.leonardoz.dsl.statement.StatementBuilder;
 import br.com.leonardoz.models.User;
 
 /**

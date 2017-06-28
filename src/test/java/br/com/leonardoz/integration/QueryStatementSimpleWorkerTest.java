@@ -33,8 +33,8 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITable;
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.query.QueryStatementSimpleWorker;
+import br.com.leonardoz.dsl.query.QueryStatementSimpleWorker;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 import br.com.leonardoz.models.User;
 
@@ -45,7 +45,7 @@ import br.com.leonardoz.models.User;
 public class QueryStatementSimpleWorkerTest extends JdbcDslBaseTest {
 
 	/**
-	 * Test method for {@link br.com.leonardoz.dsl.internals.query.QueryStatementSimpleWorker#get()}.
+	 * Test method for {@link br.com.leonardoz.dsl.query.QueryStatementSimpleWorker#get()}.
 	 * @throws SQLException 
 	 * @throws DataSetException 
 	 */
@@ -66,7 +66,7 @@ public class QueryStatementSimpleWorkerTest extends JdbcDslBaseTest {
 	}
 
 	/**
-	 * Test method for {@link br.com.leonardoz.dsl.internals.query.QueryStatementSimpleWorker#getAll()}.
+	 * Test method for {@link br.com.leonardoz.dsl.query.QueryStatementSimpleWorker#getAll()}.
 	 * @throws SQLException 
 	 */
 	@Test

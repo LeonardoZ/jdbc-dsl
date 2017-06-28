@@ -19,54 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz;
+package br.com.leonardoz.dsl.batch;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import br.com.leonardoz.dsl.ConnectionFactory;
+
 /**
- * TODO - HikariCP support
- * DO NOT USE THIS IN PRODUCTION
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class DefaultConnectionFactory implements ConnectionFactory {
+public class BatchStatementWorker {
+	
+	private ConnectionFactory factory;
+	private BatchStatement batchStatement;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	private ConnectionInfo info;
-
-	public DefaultConnectionFactory(ConnectionInfo info) {
-		this.info = info;
-		init();
+	public BatchStatementWorker(BatchStatement batchStatement, ConnectionFactory factory) {
+		this.batchStatement = batchStatement;
+		this.factory = factory;
 	}
 
-	private void init() {
-		try {
-			Class.forName(info.getDatabaseDriver());
-		} catch (ClassNotFoundException ex) {
-			System.out.println("Error: unable to load driver class!");
-		}
-	}
-
-	@Override
-	public Connection getConnection() {
-		try {
-			return DriverManager.getConnection(info.getConnectUrl(), info.getUser(), info.getPassword());
+	/**
+	 * @return Affected Rows in each statement
+	 */
+	public int[] execute() {
+		try (Connection connection = factory.getConnection();
+			 PreparedStatement statement = new BatchOperationParser()
+						.parse(batchStatement.getSql(), batchStatement.getParamsOfStatement(), connection)) {
+			int[] affectedRows = new SqlBatchExecutor().exec(statement, connection);
+			return affectedRows;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public Connection getTransactionalConnection() {
-		try {
-			Connection connection = getConnection();
-			connection.setAutoCommit(false);
-			return connection;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+			logger.error(e.getMessage());
+			return new int[]{};
 		}
 	}
 

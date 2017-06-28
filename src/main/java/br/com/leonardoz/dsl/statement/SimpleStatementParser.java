@@ -19,50 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz;
+package br.com.leonardoz.dsl.statement;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
- * TODO
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class ConnectionInfo {
+public class SimpleStatementParser {
 
-	private String databaseDriver;
-	private String user;
-	private String password;
-	private String connectUrl;
-
-	public String getDatabaseDriver() {
-		return databaseDriver;
-	}
-
-	protected void setDatabaseDriver(String databaseDriver) {
-		this.databaseDriver = databaseDriver;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	protected void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	protected void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getConnectUrl() {
-		return connectUrl;
-	}
-
-	protected void setConnectUrl(String connectUrl) {
-		this.connectUrl = connectUrl;
+	/**
+	 * @param operation
+	 * @param connection
+	 * @return {@ PreparedStatement} built from {@ SimpleStatement}
+	 * @throws SQLException
+	 */
+	public PreparedStatement parse(SimpleStatement operation, Connection connection) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(operation.getSql());
+		PreparedStatementUtils.setParementers(statement, operation.getParameters());
+		return statement;
 	}
 
 }

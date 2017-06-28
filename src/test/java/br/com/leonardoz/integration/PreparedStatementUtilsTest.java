@@ -10,7 +10,7 @@ import java.sql.Types;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.PreparedStatementUtils;
+import br.com.leonardoz.dsl.statement.PreparedStatementUtils;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 public class PreparedStatementUtilsTest extends JdbcDslBaseTest {

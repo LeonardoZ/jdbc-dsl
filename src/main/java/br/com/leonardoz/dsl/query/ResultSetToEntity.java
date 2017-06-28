@@ -19,29 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz;
+package br.com.leonardoz.dsl.query;
 
-import java.sql.Connection;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
+ * Parses from a {@ ResultSet} to an {T}
+ * 
  * @author Leonardo H. Zapparoli
- *  2017-06-27
+ * 
+ * @param <T> 2017-06-27
  */
-public interface ConnectionFactory {
-	
-	/**
-	 * Initiate the connection or return one from a Pool.
-	 * @return {@link Connection}
-	 */
-	Connection getConnection();
+public interface ResultSetToEntity<T> {
 
 	/**
-	 * Setting {@link Connection#setAutoCommit(Boolean)} to false only way to get a Transactional version.
-	 * But you can implement different Connection Pools for Transactional Queries if you want.
-	 * 
-	 * @return {@link Connection}.
+	 * @param resultSet already in position to be read
+	 * @return <T>
+	 * @throws SQLException
 	 */
-	Connection getTransactionalConnection();
+	T parse(ResultSet resultSet) throws SQLException;
 	
 }

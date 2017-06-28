@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.query;
+package br.com.leonardoz.dsl.query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,8 +28,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.SimpleStatementParser;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
+import br.com.leonardoz.dsl.statement.SimpleStatementParser;
 
 /**
  * Used for Transactions

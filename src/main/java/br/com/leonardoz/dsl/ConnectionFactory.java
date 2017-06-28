@@ -19,23 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.dml;
+package br.com.leonardoz.dsl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-public class SqlOperationExecutor {
+
+/**
+ * @author Leonardo H. Zapparoli
+ *  2017-06-27
+ */
+public interface ConnectionFactory {
 	
 	/**
-	 * @param statement
-	 * @param conn
-	 * @return Affected Rows
-	 * @throws SQLException
+	 * Initiate the connection or return one from a Pool.
+	 * @return {@link Connection}
 	 */
-	public int exec(PreparedStatement statement, Connection conn) throws SQLException {
-		int affectedRows = statement.executeUpdate();
-		return affectedRows;
-	}
+	Connection getConnection();
 
+	/**
+	 * Setting {@link Connection#setAutoCommit(Boolean)} to false only way to get a Transactional version.
+	 * But you can implement different Connection Pools for Transactional Queries if you want.
+	 * 
+	 * @return {@link Connection}.
+	 */
+	Connection getTransactionalConnection();
+	
 }

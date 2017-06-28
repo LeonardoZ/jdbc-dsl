@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
 
 /**
  * @author Leonardo H. Zapparoli 2017-06-27

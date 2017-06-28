@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl.batch;
 
 import java.util.List;
 

@@ -29,9 +29,9 @@ import static org.mockito.Matchers.any;
 
 import org.junit.Test;
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.dsl.internals.batch.BatchStatementBuilder;
-import br.com.leonardoz.dsl.internals.batch.BatchStatementWorker;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.batch.BatchStatementBuilder;
+import br.com.leonardoz.dsl.batch.BatchStatementWorker;
 
 /**
  * @author Leonardo H. Zapparoli

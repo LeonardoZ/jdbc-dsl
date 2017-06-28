@@ -19,45 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.dml;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.SimpleStatementParser;
+package br.com.leonardoz.dsl.statement;
 
 /**
- * Used for Transactions
+ * Represents a INSERT / UPDATE / DELETE / SELECT statement
  * 
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class DmlStatementSimpleWorker {
+public class SimpleStatement {
 
-	private SimpleStatement sqlOperation;
-	private Connection connection;
-
-	/**
-	 * @param sqlOperation
-	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
-	 */
-	public DmlStatementSimpleWorker(SimpleStatement sqlOperation, Connection connection) {
-		this.sqlOperation = sqlOperation;
-		this.connection = connection;
-	}
+	private String sql;
+	private Object[] parameters;
+	private boolean isDml;
 
 	/**
-	 * @return Affected Rows
-	 * @throws SQLException
+	 * @param sql
+	 * @param isDml
+	 * @param parameters
 	 */
-	public int execute() throws SQLException {
-		try (PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection)) {
-
-			int affectedRows = new SqlOperationExecutor().exec(statement, connection); 
-			return affectedRows;
-		}
+	public SimpleStatement(String sql, boolean isDml, Object... parameters) {
+		this.sql = sql;
+		this.isDml = isDml;
+		this.parameters = parameters;
 	}
+
+	public String getSql() {
+		return sql;
+	}
+
+	public Object[] getParameters() {
+		return parameters;
+	}
+
+	public boolean isDml() {
+		return isDml;
+	}
+	
 
 }

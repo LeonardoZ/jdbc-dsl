@@ -19,53 +19,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.transactional;
+package br.com.leonardoz.dsl;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import br.com.leonardoz.dsl.batch.BatchStatementBuilder;
+import br.com.leonardoz.dsl.statement.StatementBuilder;
+import br.com.leonardoz.dsl.transactional.TransactionBuilder;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+/**
+ * Main class of this DSL API
+ * 
+ * @author Leonardo H. Zapparoli
+ *  2017-06-27
+ */
+public class JdbcDsl {
 
-import br.com.leonardoz.ConnectionFactory;
-
-public class TransactionalStatementsWorker {
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	private ConnectionFactory factory;
+	/**
+	 * Used for INSERT / UPDATE / DELETE / SELECT
+	 * 
+	 * @param {@link ConnectionFactory} factory
+	 * @return {@link StatementBuilder}}
+	 */
+	public static StatementBuilder sql(ConnectionFactory factory) {
+		return new StatementBuilder(factory);
+	}
 	
-	public TransactionalStatementsWorker(ConnectionFactory factory) {
-		super();
-		this.factory = factory;
+	/**
+	 * Used for Batch INSERTS / UPDATES
+	 * 
+	 * @param {@link ConnectionFactory} factory
+	 * @return {@link BatchStatementBuilder}}
+	 */
+	public static BatchStatementBuilder batch(ConnectionFactory factory) {
+		return new BatchStatementBuilder(factory);
 	}
-
-	public void scope(TransactionArea transactionArea) {
-		Connection connection = null;
-		try {
-			connection = factory.getTransactionalConnection();
-			JdbcTransactionalDsl dsl = new JdbcTransactionalDsl(connection);
-			transactionArea.interactWithDatabase(connection, dsl);
-			connection.commit();
-		} catch (SQLException e) {
-			logger.error(e.getMessage());
-			try {
-				if (!connection.isClosed()) {
-					connection.rollback();
-				}
-			} catch (SQLException e1){
-				logger.error(e1.getMessage());
-			}
-		} finally {
-			try {
-				if (!connection.isClosed()) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				logger.error(e.getMessage());
-			}
-		}
+	
+	/**
+	 * Used for TRANSACTIONS.
+	 * DO NOT USE {@link JdbcDsl} STATIC METHODS FOR TRANSACTIONAL OPERATIONS
+	 * 
+	 * @param {@link ConnectionFactory} factory
+	 * @return {@link BatchStatementBuilder}}
+	 */
+	public static TransactionBuilder transaction(ConnectionFactory factory) {
+		return new TransactionBuilder(factory);
 	}
-
 	
 
 }

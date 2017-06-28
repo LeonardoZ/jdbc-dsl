@@ -31,8 +31,8 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.PreparedStatementUtils;
-import br.com.leonardoz.dsl.internals.dml.SqlOperationExecutor;
+import br.com.leonardoz.dsl.dml.SqlOperationExecutor;
+import br.com.leonardoz.dsl.statement.PreparedStatementUtils;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 /**
@@ -42,7 +42,7 @@ import br.com.leonardoz.functional.JdbcDslBaseTest;
 public class SqlOperationExecutorTest extends JdbcDslBaseTest {
 
 	/**
-	 * Test method for {@link br.com.leonardoz.dsl.internals.dml.SqlOperationExecutor#exec(java.sql.PreparedStatement, java.sql.Connection)}.
+	 * Test method for {@link br.com.leonardoz.dsl.dml.SqlOperationExecutor#exec(java.sql.PreparedStatement, java.sql.Connection)}.
 	 * @throws SQLException 
 	 */
 	@Test

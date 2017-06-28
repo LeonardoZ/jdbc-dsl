@@ -19,60 +19,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import br.com.leonardoz.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
+ * TODO - HikariCP support
+ * DO NOT USE THIS IN PRODUCTION
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class BatchStatementBuilder {
-	
-	private ConnectionFactory factory;
-	private String sql;
-	private List<Object[]> paramsOfStatement;
+public class DefaultConnectionFactory implements ConnectionFactory {
 
-	public BatchStatementBuilder(ConnectionFactory factory) {
-		this.factory = factory;
-		this.paramsOfStatement = new LinkedList<>();
+	private ConnectionInfo info;
+
+	public DefaultConnectionFactory(ConnectionInfo info) {
+		this.info = info;
+		init();
 	}
 
-	public BatchStatementBuilder statement(String sql) {
-		this.sql = sql;
-		return this;
+	private void init() {
+		try {
+			Class.forName(info.getDatabaseDriver());
+		} catch (ClassNotFoundException ex) {
+			System.out.println("Error: unable to load driver class!");
+		}
 	}
 
-	public BatchStatementBuilder addEntry(Object... params) {
-		this.paramsOfStatement.add(params);
-		return this;
-	}
-	
-	public List<Object[]> getParameters() {
-		return new ArrayList<>(this.paramsOfStatement);
-	}
-	
-	/**
-	 * @return  {@link BatchStatementWorker}
-	 */
-	public BatchStatementWorker build() {
-		BatchStatement batchStatement = new BatchStatement(sql, paramsOfStatement);
-		return new BatchStatementWorker(batchStatement, factory);
+	@Override
+	public Connection getConnection() {
+		try {
+			return DriverManager.getConnection(info.getConnectUrl(), info.getUser(), info.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	protected ConnectionFactory getFactory() {
-		return factory;
+	@Override
+	public Connection getTransactionalConnection() {
+		try {
+			Connection connection = getConnection();
+			connection.setAutoCommit(false);
+			return connection;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	protected String getSql() {
-		return sql;
-	}
-
-	protected List<Object[]> getParamsOfStatement() {
-		return paramsOfStatement;
-	}
 }

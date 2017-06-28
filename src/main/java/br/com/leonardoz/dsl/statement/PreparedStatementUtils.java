@@ -19,9 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl.statement;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -29,17 +28,20 @@ import java.sql.SQLException;
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class SqlBatchExecutor {
-	
+public class PreparedStatementUtils {
+
 	/**
 	 * @param statement
-	 * @param conn
-	 * @return Affected Rows in each statement
+	 * @param params
 	 * @throws SQLException
 	 */
-	public int[] exec(PreparedStatement statement, Connection conn) throws SQLException {
-		int[] affectedRows = statement.executeBatch();
-		return affectedRows;
+	public static void setParementers(PreparedStatement statement, Object... params) throws SQLException {
+		if (params == null) {
+			return;
+		}
+		for (int i = 0; i < params.length; i++) {
+			// prepared statement params index starts at 1
+			statement.setObject(i + 1, params[i]);
+		}
 	}
-
 }

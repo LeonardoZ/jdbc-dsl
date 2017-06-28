@@ -30,10 +30,10 @@ import java.util.List;
 import org.dbunit.dataset.DataSetException;
 import org.junit.Test;
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.JdbcDsl;
-import br.com.leonardoz.dsl.internals.transactional.JdbcTransactionalDsl;
-import br.com.leonardoz.dsl.internals.transactional.TransactionArea;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.JdbcDsl;
+import br.com.leonardoz.dsl.transactional.JdbcTransactionalDsl;
+import br.com.leonardoz.dsl.transactional.TransactionArea;
 import br.com.leonardoz.models.Todo;
 import br.com.leonardoz.models.User;
 

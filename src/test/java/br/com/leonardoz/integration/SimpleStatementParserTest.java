@@ -34,8 +34,8 @@ import java.sql.Types;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.SimpleStatementParser;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
+import br.com.leonardoz.dsl.statement.SimpleStatementParser;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 /**
@@ -45,7 +45,7 @@ import br.com.leonardoz.functional.JdbcDslBaseTest;
 public class SimpleStatementParserTest extends JdbcDslBaseTest {
 
 	/**
-	 * Test method for {@link br.com.leonardoz.dsl.internals.SimpleStatementParser#parse(br.com.leonardoz.dsl.internals.SimpleStatement, java.sql.Connection)}.
+	 * Test method for {@link br.com.leonardoz.dsl.statement.SimpleStatementParser#parse(br.com.leonardoz.dsl.statement.SimpleStatement, java.sql.Connection)}.
 	 * @throws SQLException 
 	 */
 	@Test

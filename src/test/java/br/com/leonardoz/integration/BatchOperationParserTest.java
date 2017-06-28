@@ -36,7 +36,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.batch.BatchOperationParser;
+import br.com.leonardoz.dsl.batch.BatchOperationParser;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 /**

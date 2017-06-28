@@ -19,66 +19,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals;
-
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.dsl.internals.dml.DmlStatementWorker;
-import br.com.leonardoz.dsl.internals.query.QueryStatementWorker;
-import br.com.leonardoz.dsl.internals.query.ResultSetToEntity;
+package br.com.leonardoz.dsl;
 
 /**
- * Build a {@ SimpleStatement} into an DML or DQL Worker
- *
+ *  TODO
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class StatementBuilder {
+public class DefaultConnectionBuilder {
 
-	private ConnectionFactory factory;
-	private String sql;
-	private Object[] params;
+	private String databaseDriver;
+	private String user;
+	private String password;
+	private String connectUrl;
 
-	public StatementBuilder(ConnectionFactory factory) {
-		this.factory = factory;
-	}
-
-	public StatementBuilder statement(String sql) {
-		this.sql = sql;
+	public DefaultConnectionBuilder databaseDriver(String databaseDriver) {
+		this.databaseDriver = databaseDriver;
 		return this;
 	}
 
-	public StatementBuilder withParameters(Object... params) {
-		this.params = params;
+	public DefaultConnectionBuilder user(String user) {
+		this.user = user;
 		return this;
 	}
 
-	/**
-	 * @return {@ DmlStatementWorker}
-	 */
-	public DmlStatementWorker asDml() {
-		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());
-		return new DmlStatementWorker(sqlOperation, factory);
+	public DefaultConnectionBuilder password(String password) {
+		this.password = password;
+		return this;
 	}
 
-	/**
-	 * @param resultSetToEntity
-	 * @return {@ QueryStatementWorker}
-	 */
-	public <T> QueryStatementWorker<T> asQuery(ResultSetToEntity<T> resultSetToEntity) {
-		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());
-		return new QueryStatementWorker<T>(sqlOperation, factory, resultSetToEntity);
+	public DefaultConnectionBuilder connectUrl(String connectUrl) {
+		this.connectUrl = connectUrl;
+		return this;
+	}
+	
+	public ConnectionFactory build() {
+		ConnectionInfo connectionInfo = new ConnectionInfo();
+		connectionInfo.setConnectUrl(connectUrl);
+		connectionInfo.setDatabaseDriver(databaseDriver);
+		connectionInfo.setPassword(password);
+		connectionInfo.setUser(user);
+		return new DefaultConnectionFactory(connectionInfo);
 	}
 
-	protected ConnectionFactory getFactory() {
-		return factory;
-	}
-
-	protected String getSql() {
-		return sql;
-	}
-
-	protected Object[] getParams() {
-		return params;
-	}
 
 }

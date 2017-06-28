@@ -19,18 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.transactional;
+package br.com.leonardoz.dsl.transactional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.batch.BatchStatement;
-import br.com.leonardoz.dsl.internals.batch.BatchStatementSimpleWorker;
-import br.com.leonardoz.dsl.internals.dml.DmlStatementSimpleWorker;
-import br.com.leonardoz.dsl.internals.query.QueryStatementSimpleWorker;
-import br.com.leonardoz.dsl.internals.query.ResultSetToEntity;
+import br.com.leonardoz.dsl.batch.BatchStatement;
+import br.com.leonardoz.dsl.batch.BatchStatementSimpleWorker;
+import br.com.leonardoz.dsl.dml.DmlStatementSimpleWorker;
+import br.com.leonardoz.dsl.query.QueryStatementSimpleWorker;
+import br.com.leonardoz.dsl.query.ResultSetToEntity;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
 
 /**
  * Use this class inside 

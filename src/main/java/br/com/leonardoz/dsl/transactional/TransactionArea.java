@@ -19,29 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals;
+package br.com.leonardoz.dsl.transactional;
 
-import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class PreparedStatementUtils {
-
+public interface TransactionArea {
+	
 	/**
-	 * @param statement
-	 * @param params
+	 * Transactions happens here using {@link JdbcTransactionalDsl}}
+	 * 
+	 * @param connection
+	 * @param dsl
 	 * @throws SQLException
 	 */
-	public static void setParementers(PreparedStatement statement, Object... params) throws SQLException {
-		if (params == null) {
-			return;
-		}
-		for (int i = 0; i < params.length; i++) {
-			// prepared statement params index starts at 1
-			statement.setObject(i + 1, params[i]);
-		}
-	}
+	void interactWithDatabase(Connection connection, JdbcTransactionalDsl dsl) throws SQLException;
+
 }

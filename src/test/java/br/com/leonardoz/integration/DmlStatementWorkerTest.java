@@ -29,8 +29,8 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.dml.DmlStatementWorker;
+import br.com.leonardoz.dsl.dml.DmlStatementWorker;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 /**
@@ -39,7 +39,7 @@ import br.com.leonardoz.functional.JdbcDslBaseTest;
 public class DmlStatementWorkerTest extends JdbcDslBaseTest {
 	/**
 	 * Test method for
-	 * {@link br.com.leonardoz.dsl.internals.dml.DmlStatementWorker#execute()}.
+	 * {@link br.com.leonardoz.dsl.dml.DmlStatementWorker#execute()}.
 	 * 
 	 * @throws SQLException
 	 */

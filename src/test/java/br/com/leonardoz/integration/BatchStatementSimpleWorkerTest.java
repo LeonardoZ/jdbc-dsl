@@ -32,8 +32,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.batch.BatchStatement;
-import br.com.leonardoz.dsl.internals.batch.BatchStatementSimpleWorker;
+import br.com.leonardoz.dsl.batch.BatchStatement;
+import br.com.leonardoz.dsl.batch.BatchStatementSimpleWorker;
 import br.com.leonardoz.functional.JdbcDslBaseTest;
 
 /**
@@ -43,7 +43,7 @@ import br.com.leonardoz.functional.JdbcDslBaseTest;
 public class BatchStatementSimpleWorkerTest extends JdbcDslBaseTest {
 
 	/**
-	 * Test method for {@link br.com.leonardoz.dsl.internals.batch.BatchStatementSimpleWorker#execute()}.
+	 * Test method for {@link br.com.leonardoz.dsl.batch.BatchStatementSimpleWorker#execute()}.
 	 * @throws SQLException 
 	 */
 	@Test

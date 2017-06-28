@@ -19,67 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.query;
+package br.com.leonardoz.dsl.dml;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.SimpleStatementParser;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.statement.SimpleStatement;
+import br.com.leonardoz.dsl.statement.SimpleStatementParser;
 
-/**
- * @author Leonardo H. Zapparoli
- * 
- * @param <T> - Row Converted to Entity type
- * 2017-06-27
- */
-public class QueryStatementWorker<T> {
+public class DmlStatementWorker {
 
 	private SimpleStatement sqlOperation;
 	private ConnectionFactory factory;
-	private ResultSetToEntity<T> resultSetToEntity;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public QueryStatementWorker(SimpleStatement sqlOperation, ConnectionFactory factory,
-			ResultSetToEntity<T> resultSetToEntity) {
+	public DmlStatementWorker(SimpleStatement sqlOperation, ConnectionFactory factory) {
 		this.sqlOperation = sqlOperation;
 		this.factory = factory;
-		this.resultSetToEntity = resultSetToEntity;
 	}
 
-	public T get() {
+	/**
+	 * @return Affected Rows
+	 */
+	public int execute() {
 		try (Connection connection = factory.getConnection();
-				PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection);
-				ResultSet resultSet = new SqlQueryExecutor().get(statement, connection)) {
-			resultSet.next();
-			T parsed = resultSetToEntity.parse(resultSet);
-			return parsed;
+				PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection)) {
+			int affectedRows = new SqlOperationExecutor().exec(statement, connection);
+			return affectedRows;
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
-			return null;
-		}
-	}
-
-	public List<T> getAll() {
-		try (Connection connection = factory.getConnection();
-				PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection);
-				ResultSet resultSet = new SqlQueryExecutor().get(statement, connection)) {
-			List<T> entities = new LinkedList<>();
-			while (resultSet.next()) {
-				entities.add(resultSetToEntity.parse(resultSet));
-			}
-			return entities;
-		} catch (SQLException e) {
-			logger.error(e.getMessage());
-			return null;
+			return 0;
 		}
 	}
 

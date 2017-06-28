@@ -15,7 +15,7 @@ It supports:
   - Transactional operations;
 
 # Usage
-First, you need to implement the br.com.leonardoz.ConnectionFactory interface. This will be used by the DSL for every subsequential operation.
+First, you need to implement the br.com.leonardoz.dsl.ConnectionFactory interface. This will be used by the DSL for every subsequential operation.
 
 ```java
 public interface ConnectionFactory {
@@ -26,7 +26,7 @@ public interface ConnectionFactory {
 ```
 We recommend you to use an Connection Pool like HikariCP to maintain the efficiency.
 
-### DQL
+# DQL
 Using DQL statements (like INSERT, DELETE or UPDATE):
 ```java
     User newUser = createUser();
@@ -38,8 +38,8 @@ Using DQL statements (like INSERT, DELETE or UPDATE):
             .execute();
 ```
 
-### Query
-For using Queries, you will need to implement a br.com.leonardoz.dsl.internals.query.ResultSetToEntity<T> to parse from a ResultSet to some Entity in your project. 
+# Query
+For using Queries, you will need to implement a br.com.leonardoz.dsl.query.ResultSetToEntity<T> to parse from a ResultSet to some Entity in your project. 
 ```java
     ResultSetToEntity<User> userParser = new ResultSetToEntity<User>() {
         @Override
@@ -84,7 +84,7 @@ And to query with the DSL:
         .get();
 ```
 
-### Batch
+# Batch
 JDBC supports Batch operations. In JDBC-DSL we built a fluent API for doing Batch operations (that can also be broken to use something like for-each loops), with the ideia of making flexible to use UPDATE or INSERT a certain amount of data
 ```java
     ConnectionFactory factory = factory();
@@ -110,8 +110,8 @@ JDBC supports Batch operations. In JDBC-DSL we built a fluent API for doing Batc
             .execute()
 ```
 
-### Transactions
-A transaction is a atomic operation. To use Transactions in JDBC-DSL you need to follow a imposed structure by the JdbcApi, as the exemple shows:
+# Transactions
+A transaction is a atomic operation. To use Transactions in JDBC-DSL you need to follow a imposed structure by the JdbcApi, as the example shows:
 ```java
     JdbcDsl.transaction(factory)
         .doInTransaction(new TransactionArea() {
@@ -133,10 +133,13 @@ or using the Java 8 syntax:
         });
 ```
 
-### Logging
+# Logging
 (soon)
 
-### Tests
+# Tests
+(soon)
+
+# Maven
 (soon)
 
 License

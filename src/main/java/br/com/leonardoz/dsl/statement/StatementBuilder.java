@@ -19,45 +19,66 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl.statement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import br.com.leonardoz.ConnectionFactory;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.dml.DmlStatementWorker;
+import br.com.leonardoz.dsl.query.QueryStatementWorker;
+import br.com.leonardoz.dsl.query.ResultSetToEntity;
 
 /**
+ * Build a {@ SimpleStatement} into an DML or DQL Worker
+ *
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class BatchStatementWorker {
-	
-	private ConnectionFactory factory;
-	private BatchStatement batchStatement;
-	private Logger logger = LoggerFactory.getLogger(getClass());
+public class StatementBuilder {
 
-	public BatchStatementWorker(BatchStatement batchStatement, ConnectionFactory factory) {
-		this.batchStatement = batchStatement;
+	private ConnectionFactory factory;
+	private String sql;
+	private Object[] params;
+
+	public StatementBuilder(ConnectionFactory factory) {
 		this.factory = factory;
 	}
 
+	public StatementBuilder statement(String sql) {
+		this.sql = sql;
+		return this;
+	}
+
+	public StatementBuilder withParameters(Object... params) {
+		this.params = params;
+		return this;
+	}
+
 	/**
-	 * @return Affected Rows in each statement
+	 * @return {@ DmlStatementWorker}
 	 */
-	public int[] execute() {
-		try (Connection connection = factory.getConnection();
-			 PreparedStatement statement = new BatchOperationParser()
-						.parse(batchStatement.getSql(), batchStatement.getParamsOfStatement(), connection)) {
-			int[] affectedRows = new SqlBatchExecutor().exec(statement, connection);
-			return affectedRows;
-		} catch (SQLException e) {
-			logger.error(e.getMessage());
-			return new int[]{};
-		}
+	public DmlStatementWorker asDml() {
+		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());
+		return new DmlStatementWorker(sqlOperation, factory);
+	}
+
+	/**
+	 * @param resultSetToEntity
+	 * @return {@ QueryStatementWorker}
+	 */
+	public <T> QueryStatementWorker<T> asQuery(ResultSetToEntity<T> resultSetToEntity) {
+		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());
+		return new QueryStatementWorker<T>(sqlOperation, factory, resultSetToEntity);
+	}
+
+	protected ConnectionFactory getFactory() {
+		return factory;
+	}
+
+	protected String getSql() {
+		return sql;
+	}
+
+	protected Object[] getParams() {
+		return params;
 	}
 
 }

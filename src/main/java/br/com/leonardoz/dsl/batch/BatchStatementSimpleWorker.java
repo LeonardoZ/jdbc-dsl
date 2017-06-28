@@ -19,25 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.query;
+package br.com.leonardoz.dsl.batch;
 
-import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Parses from a {@ ResultSet} to an {T}
+ * Used for Transactions
  * 
  * @author Leonardo H. Zapparoli
- * 
- * @param <T> 2017-06-27
+ *  2017-06-27
  */
-public interface ResultSetToEntity<T> {
+public class BatchStatementSimpleWorker {
+
+	private BatchStatement batchStatement;
+	private Connection connection;
 
 	/**
-	 * @param resultSet already in position to be read
-	 * @return <T>
+	 * @param batchStatement
+	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
+	 */
+	public BatchStatementSimpleWorker(BatchStatement batchStatement, Connection connection) {
+		this.batchStatement = batchStatement;
+		this.connection = connection;
+	}
+
+	/**
+	 * @return Affected Rows in each statement
 	 * @throws SQLException
 	 */
-	T parse(ResultSet resultSet) throws SQLException;
-	
+	public int[] execute() throws SQLException {
+		try (PreparedStatement statement = new BatchOperationParser().parse(batchStatement.getSql(),
+			batchStatement.getParamsOfStatement(), connection)) {
+			int[] affectedRows = new SqlBatchExecutor().exec(statement, connection);
+			return affectedRows;
+		}
+	}
 }

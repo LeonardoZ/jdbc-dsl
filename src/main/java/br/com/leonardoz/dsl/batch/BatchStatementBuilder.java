@@ -19,41 +19,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl.batch;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import br.com.leonardoz.dsl.ConnectionFactory;
 
 /**
- * Used for Transactions
- * 
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class BatchStatementSimpleWorker {
+public class BatchStatementBuilder {
+	
+	private ConnectionFactory factory;
+	private String sql;
+	private List<Object[]> paramsOfStatement;
 
-	private BatchStatement batchStatement;
-	private Connection connection;
-
-	/**
-	 * @param batchStatement
-	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
-	 */
-	public BatchStatementSimpleWorker(BatchStatement batchStatement, Connection connection) {
-		this.batchStatement = batchStatement;
-		this.connection = connection;
+	public BatchStatementBuilder(ConnectionFactory factory) {
+		this.factory = factory;
+		this.paramsOfStatement = new LinkedList<>();
 	}
 
+	public BatchStatementBuilder statement(String sql) {
+		this.sql = sql;
+		return this;
+	}
+
+	public BatchStatementBuilder addEntry(Object... params) {
+		this.paramsOfStatement.add(params);
+		return this;
+	}
+	
+	public List<Object[]> getParameters() {
+		return new ArrayList<>(this.paramsOfStatement);
+	}
+	
 	/**
-	 * @return Affected Rows in each statement
-	 * @throws SQLException
+	 * @return  {@link BatchStatementWorker}
 	 */
-	public int[] execute() throws SQLException {
-		try (PreparedStatement statement = new BatchOperationParser().parse(batchStatement.getSql(),
-			batchStatement.getParamsOfStatement(), connection)) {
-			int[] affectedRows = new SqlBatchExecutor().exec(statement, connection);
-			return affectedRows;
-		}
+	public BatchStatementWorker build() {
+		BatchStatement batchStatement = new BatchStatement(sql, paramsOfStatement);
+		return new BatchStatementWorker(batchStatement, factory);
+	}
+
+	protected ConnectionFactory getFactory() {
+		return factory;
+	}
+
+	protected String getSql() {
+		return sql;
+	}
+
+	protected List<Object[]> getParamsOfStatement() {
+		return paramsOfStatement;
 	}
 }

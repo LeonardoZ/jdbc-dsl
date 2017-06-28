@@ -19,36 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.batch;
+package br.com.leonardoz.dsl.transactional;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
-import br.com.leonardoz.dsl.internals.PreparedStatementUtils;
+import br.com.leonardoz.dsl.ConnectionFactory;
 
 /**
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class BatchOperationParser {
+public class TransactionBuilder {
+	
+	private ConnectionFactory factory;
 
-	/**
-	 * @param sql
-	 * @param paramsOfStatements
-	 * @param connection
-	 * @return  {@ PreparedStatement} 
-	 * @throws SQLException
-	 */
-	public PreparedStatement parse(String sql, List<Object[]> paramsOfStatements, Connection connection) 
-			throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(sql);
-		for (Object[] params : paramsOfStatements) {
-			PreparedStatementUtils.setParementers(statement, params);
-			statement.addBatch();
-		}
-		return statement;
+	public TransactionBuilder(ConnectionFactory factory) {
+		this.factory = factory;
 	}
-
+	
+	public void doInTransaction(TransactionArea area) {
+		new TransactionalStatementsWorker(factory).scope(area);
+	}
+	
 }

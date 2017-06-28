@@ -19,42 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.dml;
+package br.com.leonardoz.dsl.query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+/**
+ * @author Leonardo H. Zapparoli
+ *  2017-06-27
+ */
+public class SqlQueryExecutor {
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.dsl.internals.SimpleStatement;
-import br.com.leonardoz.dsl.internals.SimpleStatementParser;
-
-public class DmlStatementWorker {
-
-	private SimpleStatement sqlOperation;
-	private ConnectionFactory factory;
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	public DmlStatementWorker(SimpleStatement sqlOperation, ConnectionFactory factory) {
-		this.sqlOperation = sqlOperation;
-		this.factory = factory;
-	}
-
-	/**
-	 * @return Affected Rows
-	 */
-	public int execute() {
-		try (Connection connection = factory.getConnection();
-				PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection)) {
-			int affectedRows = new SqlOperationExecutor().exec(statement, connection);
-			return affectedRows;
-		} catch (SQLException e) {
-			logger.error(e.getMessage());
-			return 0;
-		}
+	public ResultSet get(PreparedStatement statement, Connection connection) throws SQLException {
+		return statement.executeQuery();
 	}
 
 }

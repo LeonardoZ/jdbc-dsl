@@ -42,9 +42,9 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.leonardoz.ConnectionFactory;
-import br.com.leonardoz.DefaultConnectionBuilder;
-import br.com.leonardoz.dsl.internals.query.ResultSetToEntity;
+import br.com.leonardoz.dsl.ConnectionFactory;
+import br.com.leonardoz.dsl.DefaultConnectionBuilder;
+import br.com.leonardoz.dsl.query.ResultSetToEntity;
 import br.com.leonardoz.models.Todo;
 import br.com.leonardoz.models.User;
 

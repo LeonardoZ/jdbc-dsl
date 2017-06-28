@@ -32,7 +32,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.leonardoz.dsl.internals.batch.BatchStatement;
+import br.com.leonardoz.dsl.batch.BatchStatement;
 
 /**
  * @author Leonardo H. Zapparoli

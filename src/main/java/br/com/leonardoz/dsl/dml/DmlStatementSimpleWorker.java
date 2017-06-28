@@ -19,48 +19,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz;
+package br.com.leonardoz.dsl.dml;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import br.com.leonardoz.dsl.statement.SimpleStatement;
+import br.com.leonardoz.dsl.statement.SimpleStatementParser;
 
 /**
- *  TODO
+ * Used for Transactions
+ * 
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class DefaultConnectionBuilder {
+public class DmlStatementSimpleWorker {
 
-	private String databaseDriver;
-	private String user;
-	private String password;
-	private String connectUrl;
+	private SimpleStatement sqlOperation;
+	private Connection connection;
 
-	public DefaultConnectionBuilder databaseDriver(String databaseDriver) {
-		this.databaseDriver = databaseDriver;
-		return this;
+	/**
+	 * @param sqlOperation
+	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
+	 */
+	public DmlStatementSimpleWorker(SimpleStatement sqlOperation, Connection connection) {
+		this.sqlOperation = sqlOperation;
+		this.connection = connection;
 	}
 
-	public DefaultConnectionBuilder user(String user) {
-		this.user = user;
-		return this;
-	}
+	/**
+	 * @return Affected Rows
+	 * @throws SQLException
+	 */
+	public int execute() throws SQLException {
+		try (PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection)) {
 
-	public DefaultConnectionBuilder password(String password) {
-		this.password = password;
-		return this;
+			int affectedRows = new SqlOperationExecutor().exec(statement, connection); 
+			return affectedRows;
+		}
 	}
-
-	public DefaultConnectionBuilder connectUrl(String connectUrl) {
-		this.connectUrl = connectUrl;
-		return this;
-	}
-	
-	public ConnectionFactory build() {
-		ConnectionInfo connectionInfo = new ConnectionInfo();
-		connectionInfo.setConnectUrl(connectUrl);
-		connectionInfo.setDatabaseDriver(databaseDriver);
-		connectionInfo.setPassword(password);
-		connectionInfo.setUser(user);
-		return new DefaultConnectionFactory(connectionInfo);
-	}
-
 
 }

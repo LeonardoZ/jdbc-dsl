@@ -19,24 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.transactional;
+package br.com.leonardoz.dsl.batch;
 
-import br.com.leonardoz.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * @author Leonardo H. Zapparoli
  *  2017-06-27
  */
-public class TransactionBuilder {
+public class SqlBatchExecutor {
 	
-	private ConnectionFactory factory;
+	/**
+	 * @param statement
+	 * @param conn
+	 * @return Affected Rows in each statement
+	 * @throws SQLException
+	 */
+	public int[] exec(PreparedStatement statement, Connection conn) throws SQLException {
+		int[] affectedRows = statement.executeBatch();
+		return affectedRows;
+	}
 
-	public TransactionBuilder(ConnectionFactory factory) {
-		this.factory = factory;
-	}
-	
-	public void doInTransaction(TransactionArea area) {
-		new TransactionalStatementsWorker(factory).scope(area);
-	}
-	
 }

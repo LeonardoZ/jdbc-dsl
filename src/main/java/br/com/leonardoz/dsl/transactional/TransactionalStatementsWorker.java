@@ -19,24 +19,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package br.com.leonardoz.dsl.internals.transactional;
+package br.com.leonardoz.dsl.transactional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * @author Leonardo H. Zapparoli
- *  2017-06-27
- */
-public interface TransactionArea {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import br.com.leonardoz.dsl.ConnectionFactory;
+
+public class TransactionalStatementsWorker {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	private ConnectionFactory factory;
 	
-	/**
-	 * Transactions happens here using {@link JdbcTransactionalDsl}}
-	 * 
-	 * @param connection
-	 * @param dsl
-	 * @throws SQLException
-	 */
-	void interactWithDatabase(Connection connection, JdbcTransactionalDsl dsl) throws SQLException;
+	public TransactionalStatementsWorker(ConnectionFactory factory) {
+		super();
+		this.factory = factory;
+	}
+
+	public void scope(TransactionArea transactionArea) {
+		Connection connection = null;
+		try {
+			connection = factory.getTransactionalConnection();
+			JdbcTransactionalDsl dsl = new JdbcTransactionalDsl(connection);
+			transactionArea.interactWithDatabase(connection, dsl);
+			connection.commit();
+
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				if (!connection.isClosed()) {
+					connection.rollback();
+				}
+			} catch (SQLException e1){
+				logger.error(e1.getMessage());
+			}
+		} finally {
+			try {
+				if (!connection.isClosed()) {
+					connection.setAutoCommit(true);
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error(e.getMessage());
+			}
+		}
+	}
+
+	
 
 }
