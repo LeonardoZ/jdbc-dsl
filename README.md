@@ -1,11 +1,9 @@
 # JDBC-DSL
 
 ## BE CAREFUL -  JDBC-DSL it's not production ready yet. 
-[![][travis img]][travis]
 
-[travis]:https://travis-ci.org/LeonardoZ/jdbc-dsl
-[travis img]:https://travis-ci.org/LeonardoZ/jdbc-dsl.svg?branch=master
-
+[![Build Status](https://travis-ci.org/LeonardoZ/jdbc-dsl.svg?branch=master)](https://travis-ci.org/LeonardoZ/jdbc-dsl)
+[![Coverage Status](https://coveralls.io/repos/github/LeonardoZ/jdbc-dsl/badge.svg)](https://coveralls.io/github/LeonardoZ/jdbc-dsl)
 
 JDBC-DSL is a simple Domain Specific Language that allows a flexible manipulation of the JDBC API.
 It supports:
@@ -19,7 +17,7 @@ It supports:
 <dependency>
   <groupId>br.com.leonardoz</groupId>
   <artifactId>jdbc-dsl</artifactId>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2-BETA</version>
 </dependency>
 ```
 
