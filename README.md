@@ -15,13 +15,13 @@ It supports:
   - Transactional operations;
 
 # Maven
-'''xml
+```xml
 <dependency>
   <groupId>br.com.leonardoz</groupId>
   <artifactId>jdbc-dsl</artifactId>
   <version>0.2-SNAPSHOT</version>
 </dependency>
-'''
+```
 
 # Usage
 First, you need to implement the br.com.leonardoz.dsl.ConnectionFactory interface. This will be used by the DSL for every subsequential operation.
