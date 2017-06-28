@@ -8,6 +8,4 @@ jdk:
 install:
   - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn test cobertura:cobertura -P it-cobertura
-after_success:
-  - mvn coveralls:report -P it-cobertura
+  - mvn test cobertura:cobertura coveralls:report -P it-cobertura
