@@ -35,29 +35,29 @@ import br.com.leonardoz.dsl.statement.SimpleStatementParser;
  * Used for Transactions
  * 
  * @author Leonardo H. Zapparoli
- * @param <T> - Row Converted to Entity type
+ * @param <T> 	Row Converted to Entity type
  * 2017-06-27
  */
 public class QueryStatementSimpleWorker<T> {
 
-	private SimpleStatement sqlOperation;
+	private SimpleStatement simpleStatement;
 	private Connection connection;
 	private ResultSetToEntity<T> resultSetToEntity;
 
 	/**
-	 * @param sqlOperation
-	 * @param connection
-	 * @param resultSetToEntity
+	 * @param simpleStatement 	Non-empty SimpleStatement
+	 * @param connection 	JDBC Connection
+	 * @param resultSetToEntity 	ResultSet parser
 	 */
-	public QueryStatementSimpleWorker(SimpleStatement sqlOperation, Connection connection,
+	public QueryStatementSimpleWorker(SimpleStatement simpleStatement, Connection connection,
 			ResultSetToEntity<T> resultSetToEntity) {
-		this.sqlOperation = sqlOperation;
+		this.simpleStatement = simpleStatement;
 		this.connection = connection;
 		this.resultSetToEntity = resultSetToEntity;
 	}
 
 	public T get() throws SQLException {
-		try (PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection);
+		try (PreparedStatement statement = new SimpleStatementParser().parse(simpleStatement, connection);
 				ResultSet resultSet = new SqlQueryExecutor().get(statement, connection)) {
 			resultSet.next();
 			T parsed = resultSetToEntity.parse(resultSet);
@@ -66,7 +66,7 @@ public class QueryStatementSimpleWorker<T> {
 	}
 
 	public List<T> getAll() throws SQLException {
-		try (PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection);
+		try (PreparedStatement statement = new SimpleStatementParser().parse(simpleStatement, connection);
 				ResultSet resultSet = new SqlQueryExecutor().get(statement, connection)) {
 			List<T> entities = new LinkedList<>();
 			while (resultSet.next()) {

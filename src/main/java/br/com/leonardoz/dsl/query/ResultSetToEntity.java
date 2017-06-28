@@ -25,18 +25,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Parses from a {@ ResultSet} to an {T}
+ * Parses from a {@link ResultSet} to an {T}
  * 
  * @author Leonardo H. Zapparoli
- * 
- * @param <T> 2017-06-27
+ * @param <T> 	Generic Type
  */
 public interface ResultSetToEntity<T> {
 
 	/**
-	 * @param resultSet already in position to be read
-	 * @return <T>
-	 * @throws SQLException
+	 * @param resultSet 	ResultSet already in position to be read
+	 * @return Generic type parsed
+	 * @throws SQLException       Invalid operation executed
 	 */
 	T parse(ResultSet resultSet) throws SQLException;
 	

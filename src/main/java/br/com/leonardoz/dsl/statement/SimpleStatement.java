@@ -34,9 +34,9 @@ public class SimpleStatement {
 	private boolean isDml;
 
 	/**
-	 * @param sql
-	 * @param isDml
-	 * @param parameters
+	 * @param sql 	SQL statement
+	 * @param isDml 	Flag - if SQL Statement is a DML
+	 * @param parameters 	Parameters
 	 */
 	public SimpleStatement(String sql, boolean isDml, Object... parameters) {
 		this.sql = sql;

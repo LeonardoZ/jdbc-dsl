@@ -36,7 +36,7 @@ public class JdbcDsl {
 	/**
 	 * Used for INSERT / UPDATE / DELETE / SELECT
 	 * 
-	 * @param {@link ConnectionFactory} factory
+	 * @param factory 	provided by user
 	 * @return {@link StatementBuilder}}
 	 */
 	public static StatementBuilder sql(ConnectionFactory factory) {
@@ -46,7 +46,7 @@ public class JdbcDsl {
 	/**
 	 * Used for Batch INSERTS / UPDATES
 	 * 
-	 * @param {@link ConnectionFactory} factory
+	 * @param factory 	provided by user 
 	 * @return {@link BatchStatementBuilder}}
 	 */
 	public static BatchStatementBuilder batch(ConnectionFactory factory) {
@@ -55,9 +55,9 @@ public class JdbcDsl {
 	
 	/**
 	 * Used for TRANSACTIONS.
-	 * DO NOT USE {@link JdbcDsl} STATIC METHODS FOR TRANSACTIONAL OPERATIONS
+	 * DO NOT USE JdbcDsl STATIC METHODS FOR TRANSACTIONAL OPERATIONS
 	 * 
-	 * @param {@link ConnectionFactory} factory
+	 * @param factory 	provided by user
 	 * @return {@link BatchStatementBuilder}}
 	 */
 	public static TransactionBuilder transaction(ConnectionFactory factory) {

@@ -16,7 +16,7 @@ import br.com.leonardoz.functional.JdbcDslBaseTest;
 public class PreparedStatementUtilsTest extends JdbcDslBaseTest {
 
 	/**
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	@Test
 	public void shouldSetParametersCorrectly() throws SQLException {

@@ -37,8 +37,8 @@ public class BatchStatementSimpleWorker {
 	private Connection connection;
 
 	/**
-	 * @param batchStatement
-	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
+	 * @param batchStatement 	non-empty BatchStatement 
+	 * @param connection 	Connection#getAutoCommit() should returns false)
 	 */
 	public BatchStatementSimpleWorker(BatchStatement batchStatement, Connection connection) {
 		this.batchStatement = batchStatement;
@@ -47,7 +47,7 @@ public class BatchStatementSimpleWorker {
 
 	/**
 	 * @return Affected Rows in each statement
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public int[] execute() throws SQLException {
 		try (PreparedStatement statement = new BatchOperationParser().parse(batchStatement.getSql(),

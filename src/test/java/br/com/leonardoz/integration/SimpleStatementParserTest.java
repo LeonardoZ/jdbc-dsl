@@ -46,7 +46,7 @@ public class SimpleStatementParserTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.statement.SimpleStatementParser#parse(br.com.leonardoz.dsl.statement.SimpleStatement, java.sql.Connection)}.
-	 * @throws SQLException 
+	 * @throws SQLException       Invalid operation executed 
 	 */
 	@Test
 	public void shouldParseCorrectly() throws SQLException {

@@ -35,11 +35,11 @@ import br.com.leonardoz.dsl.statement.PreparedStatementUtils;
 public class BatchOperationParser {
 
 	/**
-	 * @param sql
-	 * @param paramsOfStatements
-	 * @param connection
-	 * @return  {@ PreparedStatement} 
-	 * @throws SQLException
+	 * @param sql 	SQL Statement
+	 * @param paramsOfStatements 	List of parameters
+	 * @param connection JDBC 	Connection
+	 * @return  PreparedStatement 	filled with parameters 
+	 * @throws SQLException       Invalid operation executed		invalid operation
 	 */
 	public PreparedStatement parse(String sql, List<Object[]> paramsOfStatements, Connection connection) 
 			throws SQLException {

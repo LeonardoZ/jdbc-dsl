@@ -33,9 +33,9 @@ public interface TransactionArea {
 	/**
 	 * Transactions happens here using {@link JdbcTransactionalDsl}}
 	 * 
-	 * @param connection
-	 * @param dsl
-	 * @throws SQLException
+	 * @param connection 	JDBC Connection
+	 * @param dsl 	DSL for Transactional Operations
+	 * @throws SQLException       Invalid operation executed
 	 */
 	void interactWithDatabase(Connection connection, JdbcTransactionalDsl dsl) throws SQLException;
 

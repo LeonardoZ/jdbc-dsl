@@ -32,14 +32,14 @@ import java.sql.SQLException;
 public class SimpleStatementParser {
 
 	/**
-	 * @param operation
-	 * @param connection
-	 * @return {@ PreparedStatement} built from {@ SimpleStatement}
-	 * @throws SQLException
+	 * @param simpleStatement 	SQL Statement
+	 * @param connection 	JDBC Connection
+	 * @return {@link PreparedStatement} built from {@link SimpleStatement}
+	 * @throws SQLException       Invalid operation executed
 	 */
-	public PreparedStatement parse(SimpleStatement operation, Connection connection) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(operation.getSql());
-		PreparedStatementUtils.setParementers(statement, operation.getParameters());
+	public PreparedStatement parse(SimpleStatement simpleStatement, Connection connection) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(simpleStatement.getSql());
+		PreparedStatementUtils.setParementers(statement, simpleStatement.getParameters());
 		return statement;
 	}
 

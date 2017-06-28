@@ -42,7 +42,7 @@ public class DmlStatementSimpleWorkerTest extends JdbcDslBaseTest {
 	 * Test method for
 	 * {@link br.com.leonardoz.dsl.dml.DmlStatementSimpleWorker#execute()}.
 	 * 
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	@Test
 	public void shouldExecuteCorrectly() throws SQLException {

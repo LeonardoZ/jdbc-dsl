@@ -27,7 +27,7 @@ import br.com.leonardoz.dsl.query.QueryStatementWorker;
 import br.com.leonardoz.dsl.query.ResultSetToEntity;
 
 /**
- * Build a {@ SimpleStatement} into an DML or DQL Worker
+ * Build a {@link SimpleStatement} into an DML or DQL Worker
  *
  * @author Leonardo H. Zapparoli
  *  2017-06-27
@@ -53,7 +53,7 @@ public class StatementBuilder {
 	}
 
 	/**
-	 * @return {@ DmlStatementWorker}
+	 * @return {@link DmlStatementWorker}
 	 */
 	public DmlStatementWorker asDml() {
 		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());
@@ -61,8 +61,9 @@ public class StatementBuilder {
 	}
 
 	/**
-	 * @param resultSetToEntity
-	 * @return {@ QueryStatementWorker}
+	 * @param <T> 	Generic type parsed
+	 * @param resultSetToEntity ResultSet parser
+	 * @return {@link QueryStatementWorker}
 	 */
 	public <T> QueryStatementWorker<T> asQuery(ResultSetToEntity<T> resultSetToEntity) {
 		SimpleStatement sqlOperation = new SimpleStatement(getSql(), true, getParams());

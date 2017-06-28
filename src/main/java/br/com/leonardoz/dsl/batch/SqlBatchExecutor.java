@@ -32,12 +32,12 @@ import java.sql.SQLException;
 public class SqlBatchExecutor {
 	
 	/**
-	 * @param statement
-	 * @param conn
+	 * @param statement 	PreparedStatement to be executed
+	 * @param connection 	JDBC Connection
 	 * @return Affected Rows in each statement
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
-	public int[] exec(PreparedStatement statement, Connection conn) throws SQLException {
+	public int[] exec(PreparedStatement statement, Connection connection) throws SQLException {
 		int[] affectedRows = statement.executeBatch();
 		return affectedRows;
 	}

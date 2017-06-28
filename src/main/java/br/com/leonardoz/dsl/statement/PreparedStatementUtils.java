@@ -31,9 +31,9 @@ import java.sql.SQLException;
 public class PreparedStatementUtils {
 
 	/**
-	 * @param statement
-	 * @param params
-	 * @throws SQLException
+	 * @param statement 	PreparedStatement to be filled with parameters values
+	 * @param params 	Parameters
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public static void setParementers(PreparedStatement statement, Object... params) throws SQLException {
 		if (params == null) {

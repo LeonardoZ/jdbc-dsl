@@ -43,7 +43,7 @@ public class SqlOperationExecutorTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.dml.SqlOperationExecutor#exec(java.sql.PreparedStatement, java.sql.Connection)}.
-	 * @throws SQLException 
+	 * @throws SQLException       Invalid operation executed 
 	 */
 	@Test
 	public void testExec() throws SQLException {

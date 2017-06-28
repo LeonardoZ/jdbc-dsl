@@ -46,8 +46,8 @@ public class QueryStatementWorkerTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.query.QueryStatementWorker#get()}.
-	 * @throws SQLException 
-	 * @throws DataSetException 
+	 * @throws SQLException       Invalid operation executed 
+	 * @throws DataSetException 	If DataSet is invalid 
 	 */
 	@Test
 	public void shouldGetAll() throws SQLException, DataSetException {
@@ -67,7 +67,7 @@ public class QueryStatementWorkerTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.query.QueryStatementWorker#getAll()}.
-	 * @throws SQLException 
+	 * @throws SQLException       Invalid operation executed 
 	 */
 	@Test
 	public void shouldGet() throws SQLException {

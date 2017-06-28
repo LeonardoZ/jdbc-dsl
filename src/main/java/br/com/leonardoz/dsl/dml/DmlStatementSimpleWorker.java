@@ -40,17 +40,17 @@ public class DmlStatementSimpleWorker {
 	private Connection connection;
 
 	/**
-	 * @param sqlOperation
-	 * @param connection ({@ Connection#getAutoCommit()} should returns false)
+	 * @param simpleStatement 	Non-empty SimpleStatement
+	 * @param connection 	Connection#getAutoCommit() should returns false
 	 */
-	public DmlStatementSimpleWorker(SimpleStatement sqlOperation, Connection connection) {
-		this.sqlOperation = sqlOperation;
+	public DmlStatementSimpleWorker(SimpleStatement simpleStatement, Connection connection) {
+		this.sqlOperation = simpleStatement;
 		this.connection = connection;
 	}
 
 	/**
 	 * @return Affected Rows
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public int execute() throws SQLException {
 		try (PreparedStatement statement = new SimpleStatementParser().parse(sqlOperation, connection)) {

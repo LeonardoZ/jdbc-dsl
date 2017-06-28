@@ -34,7 +34,7 @@ import br.com.leonardoz.dsl.statement.SimpleStatement;
 
 /**
  * Use this class inside 
- * {@ br.com.leonardoz.dsl.internals.transactional.TransactionArea#interactWithDatabase(Connection, JdbcTransactionalDsl) }
+ * {@link br.com.leonardoz.dsl.transactional.TransactionArea#interactWithDatabase(Connection, JdbcTransactionalDsl) }
  * for executing statements
  * 
  * @author Leonardo H. Zapparoli
@@ -51,10 +51,10 @@ public class JdbcTransactionalDsl {
 	/**
 	 * Used for INSERT / UPDATE / DELETE
 	 * 
-	 * @param sql
-	 * @param parameters
+	 * @param sql	SQL Statement
+	 * @param parameters List of parameters
 	 * @return Affected Rows
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public int dml(String sql, Object... parameters) throws SQLException {
 		SimpleStatement statement = new SimpleStatement(sql, true, parameters);
@@ -64,11 +64,11 @@ public class JdbcTransactionalDsl {
 	/**
 	 * Used for SELECT returning a single row
 	 * 
-	 * @param sql
-	 * @param resultSetToEntity
-	 * @param parameters
-	 * @return <T>
-	 * @throws SQLException
+	 * @param sql	SQL Statement
+	 * @param resultSetToEntity 	ResultSet parser
+	 * @param parameters 	Parameters
+	 * @return Generic type parsed
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public <T> T get(String sql, ResultSetToEntity<T> resultSetToEntity, Object... parameters)
 			throws SQLException {
@@ -79,11 +79,11 @@ public class JdbcTransactionalDsl {
 	/**
 	 * Used for SELECT returning several rows
 	 * 
-	 * @param sql
-	 * @param resultSetToEntity
-	 * @param parameters
-	 * @return List<T>
-	 * @throws SQLException
+	 * @param sql	SQL Statement
+	 * @param resultSetToEntity		ResultSet parser
+	 * @param parameters 	Parameters
+	 * @return List of Generic type parsed
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public <T> List<T> getAll(String sql, ResultSetToEntity<T> resultSetToEntity, Object... parameters)
 			throws SQLException {
@@ -94,10 +94,10 @@ public class JdbcTransactionalDsl {
 	/**
 	 * Used for Batch INSERTS / UPDATES
 	 * 
-	 * @param sql
-	 * @param parameters
+	 * @param sql	SQL Statement
+	 * @param parameters 	Parameters
 	 * @return Affected Rows in each statement
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
 	public int[] batch(String sql, List<Object[]> parameters) throws SQLException {
 		BatchStatement statement = new BatchStatement(sql, parameters);

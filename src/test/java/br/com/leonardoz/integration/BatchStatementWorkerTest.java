@@ -43,7 +43,7 @@ public class BatchStatementWorkerTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.batch.BatchStatementWorker#execute()}.
-	 * @throws SQLException 
+	 * @throws SQLException       Invalid operation executed 
 	 */
 	@Test
 	public void shouldExecuteCorrectly() throws SQLException {

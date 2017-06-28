@@ -45,7 +45,7 @@ public class SqlQueryExecutorTest extends JdbcDslBaseTest {
 
 	/**
 	 * Test method for {@link br.com.leonardoz.dsl.query.SqlQueryExecutor#get(java.sql.PreparedStatement, java.sql.Connection)}.
-	 * @throws SQLException 
+	 * @throws SQLException       Invalid operation executed 
 	 */
 	@Test
 	public void testGet() throws SQLException {

@@ -32,15 +32,15 @@ public interface ConnectionFactory {
 	
 	/**
 	 * Initiate the connection or return one from a Pool.
-	 * @return {@link Connection}
+	 * @return Connection
 	 */
 	Connection getConnection();
 
 	/**
-	 * Setting {@link Connection#setAutoCommit(Boolean)} to false only way to get a Transactional version.
+	 * Setting Connection#setAutoCommit(Boolean) to false only way to get a Transactional version.
 	 * But you can implement different Connection Pools for Transactional Queries if you want.
 	 * 
-	 * @return {@link Connection}.
+	 * @return Connection.
 	 */
 	Connection getTransactionalConnection();
 	

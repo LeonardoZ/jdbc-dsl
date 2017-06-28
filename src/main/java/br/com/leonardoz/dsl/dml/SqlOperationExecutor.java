@@ -28,12 +28,12 @@ import java.sql.SQLException;
 public class SqlOperationExecutor {
 	
 	/**
-	 * @param statement
-	 * @param conn
+	 * @param statement 	{@link PreparedStatement} to be executed
+	 * @param connection 	JDBC Connection
 	 * @return Affected Rows
-	 * @throws SQLException
+	 * @throws SQLException       Invalid operation executed
 	 */
-	public int exec(PreparedStatement statement, Connection conn) throws SQLException {
+	public int exec(PreparedStatement statement, Connection connection) throws SQLException {
 		int affectedRows = statement.executeUpdate();
 		return affectedRows;
 	}
