@@ -33,8 +33,8 @@ public interface ConnectionFactory {
 ```
 We recommend you to use an Connection Pool like HikariCP to maintain the efficiency.
 
-# DQL
-Using DQL statements (like INSERT, DELETE or UPDATE):
+# DML
+Using DML statements (like INSERT, DELETE or UPDATE):
 ```java
     User newUser = createUser();
     ConnectionFactory factory = factory();
@@ -125,8 +125,8 @@ A transaction is a atomic operation. To use Transactions in JDBC-DSL you need to
             @Override
             public void interactWithDatabase(Connection connection, JdbcTransactionalDsl dsl) throws SQLException {
                 dsl.dml("INSERT INTO USERS VALUES(?, ?)", 62, "RICK");
+                dsl.dml("INSERT INTO USERS VALUES(?, ?)", 3, "ANDY");
                 dsl.dml("INSERT INTO USERS VALUES(?, ?)", 14, "MORTY");
-                dsl.dml("INSERT INTO USERaaaS VALUES(?, ?)", 62, "RICK");
             }
     });
 ```
